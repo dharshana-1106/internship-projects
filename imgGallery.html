@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Gallery</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #111;
+  color: #fff;
+}
+
+/* FILTER BUTTONS */
+.filter-buttons {
+  text-align: center;
+  padding: 20px;
+}
+
+.filter-buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  background: #333;
+  color: white;
+  transition: 0.3s;
+}
+
+.filter-buttons button:hover,
+.filter-buttons button.active {
+  background: #ff9800;
+}
+
+/* GALLERY GRID */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s;
+}
+
+/* HOVER EFFECT */
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: brightness(70%);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+/* NAV BUTTONS */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* CLOSE BUTTON */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .gallery-item img {
+    height: 150px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FILTER BUTTONS -->
+<div class="filter-buttons">
+  <button class="active" onclick="filterImages('all')">All</button>
+  <button onclick="filterImages('nature')">Nature</button>
+  <button onclick="filterImages('city')">Animals</button>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+  <div class="gallery-item nature"><img src="https://th.bing.com/th/id/OIP.rBa6fYI6EvWLlu8iYmu34gHaEK?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+<div class="gallery-item nature"><img src="https://tse2.mm.bing.net/th/id/OIP.x30ZY1WVCgJ8_8IY341XAgHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+<div class="gallery-item nature"><img src="https://th.bing.com/th/id/OIP.Mvcr0QDsGXOx29cSBfXd6AHaE7?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"></div> 
+  <div class="gallery-item nature"><img src="https://tse3.mm.bing.net/th/id/OIP.a5k2YKTkz7ayz_qkpnARUAHaE-?rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+  <div class="gallery-item city"><img src="https://tse2.mm.bing.net/th/id/OIP.A2JDlW2N1DW-t73m0ChQnwHaFw?rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+  <div class="gallery-item city"><img src="https://tse4.mm.bing.net/th/id/OIP.GTCjDWBn4hpGnuw2DsshxQHaEb?rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+  <div class="gallery-item city"><img src="https://wallpapers.com/images/featured/4k-animal-vh9umflbqqdqojv1.jpg"></div>
+  <div class="gallery-item city"><img src="https://th.bing.com/th/id/OIP.XQ4eOkm1iLFvM4ReknS1vwHaEo?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+  <div class="gallery-item nature"><img src="https://tse2.mm.bing.net/th/id/OIP.F2fP2nuRdNEckcbl2Y6zSAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"></div>
+  <div class="gallery-item city"><img src="https://www.format.com/wp-content/uploads/emily_mesner_wildlife_photography.jpg"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
+  <img id="lightbox-img">
+  <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+</div>
+
+<script>
+let currentIndex = 0;
+let images = [];
+
+// OPEN LIGHTBOX
+document.querySelectorAll(".gallery-item img").forEach((img, index) => {
+  img.addEventListener("click", () => {
+    images = Array.from(document.querySelectorAll(".gallery-item img"))
+      .filter(img => img.parentElement.style.display !== "none");
+
+    currentIndex = images.indexOf(img);
+
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = img.src;
+  });
+});
+
+// CLOSE LIGHTBOX
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+
+// NEXT / PREV
+function changeImage(direction) {
+  currentIndex += direction;
+
+  if (currentIndex < 0) currentIndex = images.length - 1;
+  if (currentIndex >= images.length) currentIndex = 0;
+
+  document.getElementById("lightbox-img").src = images[currentIndex].src;
+}
+
+// FILTER FUNCTION
+function filterImages(category) {
+  let items = document.querySelectorAll(".gallery-item");
+
+  items.forEach(item => {
+    if (category === "all" || item.classList.contains(category)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+
+  // Update active button
+  document.querySelectorAll(".filter-buttons button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+  event.target.classList.add("active");
+}
+</script>
+
+</body>
+</html>

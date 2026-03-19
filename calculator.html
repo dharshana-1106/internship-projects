@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glowing Calculator</title>
+
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: Arial, sans-serif;
+}
+
+.calculator {
+    background: #1e1e2f;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 300px;
+}
+
+.display {
+    background: black;
+    color: white;
+    font-size: 2em;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: right;
+    margin-bottom: 15px;
+    overflow-x: auto;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    padding: 15px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+/* Glow effect */
+button.active {
+    box-shadow: 0 0 10px rgb(218, 218, 236), 0 0 20px rgb(252, 252, 253), 0 0 40px rgb(250, 250, 252);
+    transform: scale(0.95);
+}
+
+/* Button colors */
+.number {
+    background: #2c2c3c;
+    color: white;
+}
+
+.operator {
+    background: #f7c00d;
+    color: white;
+}
+
+.equal {
+    background: #28a745;
+    color: white;
+    grid-column: span 2;
+}
+
+.clear {
+    background: #dc3545;
+    color: white;
+}
+
+.delete {
+    background: #6c757d;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+    <div class="display" id="display">0</div>
+
+    <div class="buttons">
+        <button class="clear" onclick="clearDisplay(); glowEffect(this)">C</button>
+        <button class="delete" onclick="deleteLast(); glowEffect(this)">⌫</button>
+        <button class="operator" onclick="append('%'); glowEffect(this)">%</button>
+        <button class="operator" onclick="append('/'); glowEffect(this)">÷</button>
+
+        <button class="number" onclick="append('7'); glowEffect(this)">7</button>
+        <button class="number" onclick="append('8'); glowEffect(this)">8</button>
+        <button class="number" onclick="append('9'); glowEffect(this)">9</button>
+        <button class="operator" onclick="append('*'); glowEffect(this)">×</button>
+
+        <button class="number" onclick="append('4'); glowEffect(this)">4</button>
+        <button class="number" onclick="append('5'); glowEffect(this)">5</button>
+        <button class="number" onclick="append('6'); glowEffect(this)">6</button>
+        <button class="operator" onclick="append('-'); glowEffect(this)">−</button>
+
+        <button class="number" onclick="append('1'); glowEffect(this)">1</button>
+        <button class="number" onclick="append('2'); glowEffect(this)">2</button>
+        <button class="number" onclick="append('3'); glowEffect(this)">3</button>
+        <button class="operator" onclick="append('+'); glowEffect(this)">+</button>
+
+        <button class="number" onclick="append('0'); glowEffect(this)">0</button>
+        <button class="number" onclick="append('.'); glowEffect(this)">.</button>
+        <button class="equal" onclick="calculate(); glowEffect(this)">=</button>
+    </div>
+</div>
+
+<script>
+let display = document.getElementById("display");
+
+// Add value
+function append(value) {
+    if (display.innerText === "0") {
+        display.innerText = value;
+    } else {
+        display.innerText += value;
+    }
+}
+
+// Clear screen
+function clearDisplay() {
+    display.innerText = "0";
+}
+
+// Delete last character
+function deleteLast() {
+    display.innerText = display.innerText.slice(0, -1);
+    if (display.innerText === "") {
+        display.innerText = "0";
+    }
+}
+
+// Calculate result
+function calculate() {
+    try {
+        display.innerText = eval(display.innerText);
+    } catch {
+        display.innerText = "Error";
+    }
+}
+
+// Glow effect
+function glowEffect(btn) {
+    btn.classList.add("active");
+    setTimeout(() => {
+        btn.classList.remove("active");
+    }, 150);
+}
+
+// Highlight button from keyboard
+function highlightButton(key) {
+    let buttons = document.querySelectorAll("button");
+
+    buttons.forEach(btn => {
+        if (
+            btn.innerText === key ||
+            (key === "*" && btn.innerText === "×") ||
+            (key === "/" && btn.innerText === "÷")
+        ) {
+            glowEffect(btn);
+        }
+    });
+}
+
+// Keyboard support
+document.addEventListener("keydown", function(e) {
+    let key = e.key;
+
+    if (!isNaN(key) || "+-*/.%".includes(key)) {
+        append(key);
+        highlightButton(key);
+    } 
+    else if (key === "Enter") {
+        calculate();
+        highlightButton("=");
+    } 
+    else if (key === "Backspace") {
+        deleteLast();
+        highlightButton("⌫");
+    } 
+    else if (key.toLowerCase() === "c") {
+        clearDisplay();
+        highlightButton("C");
+    }
+});
+</script>
+
+</body>
+</html>
