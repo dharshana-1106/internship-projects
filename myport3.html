@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>my portfolio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+}
+
+.bg{
+    background-color:rgb(194, 242, 248);
+    width:100%;
+    min-height:100vh;
+}
+
+nav{
+    width:100%;
+    background-color:#0F172A;
+    padding:15px 0;
+}
+
+.container{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:0 20px;
+}
+
+.head{
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    font-family:'Lucida Sans', Geneva, Verdana, sans-serif;
+}
+
+ul{
+    display:flex;
+    list-style-type:none;
+    gap:20px;
+}
+
+ul li a{
+    color:white;
+    text-decoration: none;
+    font-size:18px;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:40px;
+    color:#0F172A;
+    margin-top:40px;
+}
+
+/* SECTION TITLE */
+.sub-title{
+    text-align:center;
+    font-size:28px;
+    color:crimson;
+    margin-top:30px;
+}
+
+/* BOX */
+.box{
+    margin:30px auto;
+    padding:20px;
+    width:90%;
+    max-width:600px;
+    border:2px solid #0F172A;
+    border-radius:10px;
+    box-shadow:10px 10px 10px rgb(102, 97, 97);
+    background-color:rgb(226, 237, 238);
+}
+
+/* PROJECT TITLE */
+.project-title{
+    font-size:22px;
+    font-weight:bold;
+    color:rgb(69, 7, 170);
+}
+
+/* TEXT */
+.text{
+    font-size:16px;
+    font-weight:bold;
+    color:#0F172A;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+    ul{
+        flex-direction:column;
+        align-items:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="container">
+        <div class="head">Personal Portfolio</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio1.html">Education</a></li>
+            <li><a href="portfolio2.html">Skill</a></li>
+            <li><a href="portfolio3.html">Certification</a></li>
+            <li><a href="portfolio4.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="bg">
+
+<div class="title">Certifications & Projects</div>
+
+<!-- CERTIFICATIONS -->
+<div class="box">
+    <div class="sub-title">Certifications</div><br>
+    <div class="text">C Programming Certification</div><br>
+    <div class="text">MongoDB Certification</div>
+</div>
+
+<!-- PROJECTS -->
+<div class="sub-title">Projects</div>
+
+<div class="box">
+    <div class="project-title">Image Gallery</div><br>
+    <div class="text">A simple responsive image gallery that displays images in an organized grid layout.</div><br>
+    <div class="text">Tech: HTML, CSS, JavaScript</div>
+</div>
+
+<div class="box">
+    <div class="project-title">Calculator</div><br>
+    <div class="text">A basic calculator application that performs simple arithmetic operations.</div><br>
+    <div class="text">Tech: HTML, CSS, JavaScript</div>
+</div>
+
+<div class="box">
+    <div class="project-title">Portfolio</div><br>
+    <div class="text">A personal portfolio website to showcase my skills, projects, and contact details.</div><br>
+    <div class="text">Tech: HTML, CSS</div>
+</div>
+
+<div class="box">
+    <div class="project-title">Online Course Website</div><br>
+    <div class="text">A simple website layout for displaying online courses with a clean and responsive design.</div><br>
+    <div class="text">Tech: HTML, CSS</div>
+</div>
+
+</div>
+
+</body>
+</html>

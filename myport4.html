@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>my portfolio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+}
+
+.bg{
+    background-color:rgb(194, 242, 248);
+    width:100%;
+    min-height:100vh;
+}
+
+nav{
+    width:100%;
+    background-color:#0F172A;
+    padding:15px 0;
+}
+
+.container{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:0 20px;
+}
+
+.head{
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    font-family:'Lucida Sans', Geneva, Verdana, sans-serif;
+}
+
+ul{
+    display:flex;
+    list-style-type:none;
+    gap:20px;
+}
+
+ul li a{
+    color:white;
+    text-decoration: none;
+    font-size:18px;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:40px;
+    color:#0F172A;
+    margin-top:40px;
+}
+
+/* BOX */
+.box1{
+    margin:30px auto;
+    padding:20px;
+    width:90%;
+    max-width:500px;
+    border:2px solid #0F172A;
+    border-radius:10px;
+    box-shadow:10px 10px 10px rgb(102, 97, 97);
+    background-color:rgb(226, 237, 238);
+}
+
+/* LABEL */
+.label{
+    font-size:22px;
+    font-weight:bold;
+    color:crimson;
+}
+
+/* VALUE */
+.value{
+    font-size:18px;
+    font-weight:bold;
+    color:#0F172A;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+    ul{
+        flex-direction:column;
+        align-items:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="container">
+        <div class="head">Personal Portfolio</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio1.html">Education</a></li>
+            <li><a href="portfolio2.html">Skill</a></li>
+            <li><a href="portfolio3.html">Certification</a></li>
+            <li><a href="portfolio4.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="bg">
+
+<div class="title">Contact</div>
+
+<div class="box1">
+
+    <div class="label">Name:</div>
+    <div class="value">Naga Dharshana R</div><br>
+
+    <div class="label">Phone No:</div>
+    <div class="value">94877 42438</div><br>
+
+    <div class="label">Email:</div>
+    <div class="value">nagadharshana07@gmail.com</div><br>
+
+    <div class="label">Location:</div>
+    <div class="value">Madurai, Tamil Nadu</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
